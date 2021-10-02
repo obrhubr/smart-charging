@@ -27,7 +27,7 @@ def charging_speed_read():
 		amps = itf.read_charging_amps(instrument)
 		kw = l.convert_amps_to_kw(amps)
 
-		return '{"results": {"charging_speed_kw": ' + kw + '}}'
+		return '{"results": {"charging_speed_kw": ' + str(kw) + '}}'
 	except IOError as e:
 		return '{"error": {"message": ' + str(e) + '}}'
 
@@ -46,7 +46,7 @@ def charging_speed_set():
 		read_kw = l.convert_amps_to_kw(amps)
 
 		if amps == read_amps:
-			return '{"results": {"success": "Successfully changed charging speed to ' + read_kw + ' kW."}}'
+			return '{"results": {"success": "Successfully changed charging speed to ' + str(read_kw) + ' kW."}}'
 		else:
 			return '{"error": {"message": "Charging speed not changed to expected value"}}'
 	except IOError as e:
@@ -64,7 +64,7 @@ def charging_allowed_set():
 		read_allowed = itf.read_charging_allowed(instrument)
 
 		if allowed == read_allowed:
-			return '{"results": {"success": "Successfully changed charging permission to ' + read_kw + '."}}'
+			return '{"results": {"success": "Successfully changed charging permission to ' + str(read_kw) + '."}}'
 		else:
 			return '{"error": {"message": "Charging permission not changed to expected value."}}'
 	except IOError as e:
@@ -77,7 +77,7 @@ def charging_allowed_read():
 	try:
 		allowed = itf.read_charging_allowed(instrument)
 
-		return '{"results": {"charging_permission": ' + allowed + '}}'
+		return '{"results": {"charging_permission": ' + str(allowed) + '}}'
 	except IOError as e:
 		return '{"error": {"message": ' + str(e) + '}}'
 
