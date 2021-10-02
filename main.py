@@ -81,5 +81,5 @@ def charging_allowed_read():
 		return '{"error": {"message": ' + str(e) + '}}'
 
 if __name__ == '__main__':
-	instrument = istr.create_instrument()
-    app.run()
+	instrument = istr.create_instrument('/dev/USBtty0')
+	app.run()
