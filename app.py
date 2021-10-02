@@ -64,7 +64,7 @@ def charging_allowed_set():
 		read_allowed = itf.read_charging_allowed(instrument)
 
 		if allowed == read_allowed:
-			return '{"results": {"success": "Successfully changed charging permission to ' + str(read_kw) + '."}}'
+			return '{"results": {"success": "Successfully changed charging permission to ' + str(read_allowed) + '."}}'
 		else:
 			return '{"error": {"message": "Charging permission not changed to expected value."}}'
 	except IOError as e:
