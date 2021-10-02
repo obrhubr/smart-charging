@@ -80,6 +80,7 @@ def charging_allowed_read():
 	except IOError as e:
 		return '{"error": {"message": ' + str(e) + '}}'
 
+instrument = istr.create_instrument('/dev/ttyUSB0')
+
 if __name__ == '__main__':
-	instrument = istr.create_instrument('/dev/USBtty0')
 	app.run()
