@@ -1,5 +1,6 @@
 from flask import Flask
 from flask import Flask, request, jsonify
+import os
 
 import lib.instrument as istr
 import lib.interface as itf
@@ -10,7 +11,7 @@ app = Flask(__name__)
 # Get temperature
 @app.route('/temperature', methods=['GET'])
 def temp():
-	instrument = istr.create_instrument('/dev/ttyUSB0')
+	instrument = istr.create_instrument(os.environ.get('PORT'))
 	try:
 		temp = itf.read_temperature(instrument)
 
@@ -21,7 +22,7 @@ def temp():
 # Read charging speed
 @app.route('/charging-speed/read', methods=['GET'])
 def charging_speed_read():
-	instrument = istr.create_instrument('/dev/ttyUSB0')
+	instrument = istr.create_instrument(os.environ.get('PORT'))
 	try:
 		amps = itf.read_charging_amps(instrument)
 		kw = l.convert_amps_to_kw(amps)
@@ -31,9 +32,9 @@ def charging_speed_read():
 		return '{"error": {"message": ' + str(e) + '}}'
 
 # Set charging speed
-@app.route('/charging-speed/set', methods=['GET', 'POST'])
+@app.route('/charging-speed/set', methods=['POST'])
 def charging_speed_set():
-	instrument = istr.create_instrument('/dev/ttyUSB0')
+	instrument = istr.create_instrument(os.environ.get('PORT'))
 	try:
 		content = request.json
 		kw = content["value"]
@@ -52,9 +53,9 @@ def charging_speed_set():
 		return '{"error": {"message": ' + str(e) + '}}'
 
 # Set charging allowed
-@app.route('/charging-allowed/set', methods=['GET', 'POST'])
+@app.route('/charging-allowed/set', methods=['POST'])
 def charging_allowed_set():
-	instrument = istr.create_instrument('/dev/ttyUSB0')
+	instrument = istr.create_instrument(os.environ.get('PORT'))
 	try:
 		content = request.json
 		allowed = content["value"]
@@ -72,7 +73,7 @@ def charging_allowed_set():
 # Read charging allowed
 @app.route('/charging-allowed/read', methods=['GET'])
 def charging_allowed_read():
-	instrument = istr.create_instrument('/dev/ttyUSB0')
+	instrument = istr.create_instrument(os.environ.get('PORT'))
 	try:
 		allowed = itf.read_charging_allowed(instrument)
 
