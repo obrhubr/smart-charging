@@ -10,7 +10,7 @@ app = Flask(__name__)
 # Get temperature
 @app.route('/temperature', methods=['GET'])
 def temp():
-	global instrument
+	instrument = istr.create_instrument('/dev/ttyUSB0')
 	try:
 		temp = itf.read_temperature(instrument)
 
@@ -21,7 +21,7 @@ def temp():
 # Read charging speed
 @app.route('/charging-speed/read', methods=['GET'])
 def charging_speed_read():
-	global instrument
+	instrument = istr.create_instrument('/dev/ttyUSB0')
 	try:
 		amps = itf.read_charging_amps(instrument)
 		kw = l.convert_amps_to_kw(amps)
@@ -33,7 +33,7 @@ def charging_speed_read():
 # Set charging speed
 @app.route('/charging-speed/set', methods=['GET', 'POST'])
 def charging_speed_set():
-	global instrument
+	instrument = istr.create_instrument('/dev/ttyUSB0')
 	try:
 		content = request.json
 		kw = content["value"]
@@ -54,7 +54,7 @@ def charging_speed_set():
 # Set charging allowed
 @app.route('/charging-allowed/set', methods=['GET', 'POST'])
 def charging_allowed_set():
-	global instrument
+	instrument = istr.create_instrument('/dev/ttyUSB0')
 	try:
 		content = request.json
 		allowed = content["value"]
@@ -72,15 +72,13 @@ def charging_allowed_set():
 # Read charging allowed
 @app.route('/charging-allowed/read', methods=['GET'])
 def charging_allowed_read():
-	global instrument
+	instrument = istr.create_instrument('/dev/ttyUSB0')
 	try:
 		allowed = itf.read_charging_allowed(instrument)
 
 		return '{"results": {"charging_permission": ' + allowed + '}}'
 	except IOError as e:
 		return '{"error": {"message": ' + str(e) + '}}'
-
-instrument = istr.create_instrument('/dev/ttyUSB0')
 
 if __name__ == '__main__':
 	app.run()
