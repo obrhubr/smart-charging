@@ -31,6 +31,6 @@ def write_charging_amps(instrument, value):
 # Read at how many amps the car will be charged
 def read_charging_amps(instrument):
     try:
-        return instrument.read_register(100, 0)
+        return instrument.read_register(101, 0)
     except IOError as e:
         raise IOError('Failed to write to instrument') from e
