@@ -14,7 +14,7 @@ def temp():
 	try:
 		temp = itf.read_temperature(instrument)
 
-		return '{"results": {"temperature": ' + temp + '}}'
+		return '{"results": {"temperature": ' + str(temp) + '}}'
 	except IOError as e:
 		return '{"error": {"message": ' + str(e) + '}}'
 
