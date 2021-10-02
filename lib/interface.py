@@ -5,7 +5,7 @@ def read_temperature(instrument):
     try:
         return instrument.read_register(303, 0)
     except IOError as e:
-        raise IOError('Failed to write to instrument') from e
+        raise IOError('Failed to write to instrument: ' + str(e)) from e
 
 # Write if charging is allowed
 def write_charging_allowed(instrument, value):
