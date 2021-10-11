@@ -13,8 +13,8 @@ app = Flask(__name__)
 def temp():
 	try:
 		instrument = istr.create_instrument()
-	except e:
-		return '{"error": {"message": ' + '"Could not connect via modbus: ' + str(e) '"}}'
+	except:
+		return '{"error": {"message": ' + '"Could not connect via modbus."' + '}}'
 
 	try:
 		temp = itf.read_temperature(instrument)
@@ -28,8 +28,8 @@ def temp():
 def charging_speed_read():
 	try:
 		instrument = istr.create_instrument()
-	except e:
-		return '{"error": {"message": ' + '"Could not connect via modbus: ' + str(e) '"}}'
+	except:
+		return '{"error": {"message": ' + '"Could not connect via modbus."' + '}}'
 
 	try:
 		amps = itf.read_charging_amps(instrument)
@@ -44,8 +44,8 @@ def charging_speed_read():
 def charging_speed_set():
 	try:
 		instrument = istr.create_instrument()
-	except e:
-		return '{"error": {"message": ' + '"Could not connect via modbus: ' + str(e) '"}}'
+	except:
+		return '{"error": {"message": ' + '"Could not connect via modbus."' + '}}'
 
 	try:
 		content = request.json
@@ -66,8 +66,8 @@ def charging_speed_set():
 def charging_allowed_set():
 	try:
 		instrument = istr.create_instrument()
-	except e:
-		return '{"error": {"message": ' + '"Could not connect via modbus: ' + str(e) '"}}'
+	except:
+		return '{"error": {"message": ' + '"Could not connect via modbus."' + '}}'
 
 	try:
 		content = request.json
@@ -88,8 +88,8 @@ def charging_allowed_set():
 def charging_allowed_read():
 	try:
 		instrument = istr.create_instrument()
-	except e:
-		return '{"error": {"message": ' + '"Could not connect via modbus: ' + str(e) '"}}'
+	except:
+		return '{"error": {"message": ' + '"Could not connect via modbus."' + '}}'
 		
 	try:
 		allowed = itf.read_charging_allowed(instrument)
