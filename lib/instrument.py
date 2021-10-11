@@ -5,7 +5,7 @@ def create_instrument():
     r = re.compile("ttyUSB")
     usb = list(filter(r.match, os.listdir("/dev")))[0]
 
-    print("USB DEVICE USED: ", usb)
+    print("USB DEVICE USED: " + str(usb), flush=True)
 
     instrument = minimalmodbus.Instrument("/dev/" + usb, 1)
     instrument.serial.baudrate = 57600
