@@ -12,9 +12,9 @@ app = Flask(__name__)
 @app.route('/temperature', methods=['GET'])
 def temp():
 	try:
-		instrument = istr.create_instrument(os.environ.get('PORT'))
+		instrument = istr.create_instrument()
 	except:
-		return '{"error": {"message": ' + 'Could not connect via modbus.' + '}}'
+		return '{"error": {"message": ' + '"Could not connect via modbus."' + '}}'
 
 	try:
 		temp = itf.read_temperature(instrument)
@@ -27,9 +27,9 @@ def temp():
 @app.route('/charging-speed/read', methods=['GET'])
 def charging_speed_read():
 	try:
-		instrument = istr.create_instrument(os.environ.get('PORT'))
+		instrument = istr.create_instrument()
 	except:
-		return '{"error": {"message": ' + 'Could not connect via modbus.' + '}}'
+		return '{"error": {"message": ' + '"Could not connect via modbus."' + '}}'
 
 	try:
 		amps = itf.read_charging_amps(instrument)
@@ -43,9 +43,9 @@ def charging_speed_read():
 @app.route('/charging-speed/set', methods=['POST'])
 def charging_speed_set():
 	try:
-		instrument = istr.create_instrument(os.environ.get('PORT'))
+		instrument = istr.create_instrument()
 	except:
-		return '{"error": {"message": ' + 'Could not connect via modbus.' + '}}'
+		return '{"error": {"message": ' + '"Could not connect via modbus."' + '}}'
 
 	try:
 		content = request.json
@@ -57,10 +57,7 @@ def charging_speed_set():
 		read_amps = itf.read_charging_amps(instrument)
 		read_kw = l.convert_amps_to_kw(amps)
 
-		if amps == read_amps:
-			return '{"results": {"success": "Successfully changed charging speed to ' + str(read_kw) + ' kW."}}'
-		else:
-			return '{"error": {"message": "Charging speed not changed to expected value"}}'
+		return '{"results": {"success": "Successfully changed charging speed to ' + str(read_kw) + ' kW."}}'
 	except IOError as e:
 		return '{"error": {"message": ' + str(e) + '}}'
 
@@ -68,9 +65,9 @@ def charging_speed_set():
 @app.route('/charging-allowed/set', methods=['POST'])
 def charging_allowed_set():
 	try:
-		instrument = istr.create_instrument(os.environ.get('PORT'))
+		instrument = istr.create_instrument()
 	except:
-		return '{"error": {"message": ' + 'Could not connect via modbus.' + '}}'
+		return '{"error": {"message": ' + '"Could not connect via modbus."' + '}}'
 
 	try:
 		content = request.json
@@ -90,9 +87,9 @@ def charging_allowed_set():
 @app.route('/charging-allowed/read', methods=['GET'])
 def charging_allowed_read():
 	try:
-		instrument = istr.create_instrument(os.environ.get('PORT'))
+		instrument = istr.create_instrument()
 	except:
-		return '{"error": {"message": ' + 'Could not connect via modbus.' + '}}'
+		return '{"error": {"message": ' + '"Could not connect via modbus."' + '}}'
 		
 	try:
 		allowed = itf.read_charging_allowed(instrument)
