@@ -7,6 +7,6 @@ def create_instrument():
 
     print("USB DEVICE USED: ", usb)
 
-    instrument = minimalmodbus.Instrument(usb, 1)
+    instrument = minimalmodbus.Instrument("/dev/" + usb, 1)
     instrument.serial.baudrate = 57600
     return instrument
