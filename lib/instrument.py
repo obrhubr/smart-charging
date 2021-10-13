@@ -1,5 +1,6 @@
 import minimalmodbus
 import re
+import os
 
 def create_instrument():
     # Find usb port by checking the list of files in "/dev" and searching for USB devices
