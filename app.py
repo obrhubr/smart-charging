@@ -8,6 +8,9 @@ import lib.lib as l
 
 app = Flask(__name__)
 
+def log(string):
+	print(str(string), flush=True)
+
 # Get temperature
 @app.route('/temperature', methods=['GET'])
 def temp():
