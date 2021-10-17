@@ -63,7 +63,7 @@ def charging_speed_set():
 		read_amps = itf.read_charging_amps(instrument)
 		read_kw = l.convert_amps_to_kw(amps)
 
-		ret = '{"results": {"charging_speed_read_kw": ' + str(read_kw) + ' kW.", "charging_speed_read_amps": ' + str(read_amps) + ', "charging_speed_write_amps": ' + str(amps) '}}'
+		ret = '{"results": {"charging_speed_read_kw": ' + str(read_kw) + ' kW.", "charging_speed_read_amps": ' + str(read_amps) + ', "charging_speed_write_amps": ' + str(amps) + '}}'
 		log(ret)
 
 		return ret
