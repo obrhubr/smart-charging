@@ -19,7 +19,10 @@ def temp():
 	try:
 		temp = itf.read_temperature(instrument)
 
-		return '{"results": {"temperature": ' + str(temp) + '}}'
+		ret = '{"results": {"temperature": ' + str(temp) + '}}'
+		log(ret)
+
+		return ret
 	except IOError as e:
 		return '{"error": {"message": ' + str(e) + '}}'
 
@@ -35,7 +38,10 @@ def charging_speed_read():
 		amps = itf.read_charging_amps(instrument)
 		kw = l.convert_amps_to_kw(amps)
 
-		return '{"results": {"charging_speed_kw": ' + str(kw) + '}}'
+		ret = '{"results": {"charging_speed_kw": ' + str(kw) + ', "charging_speed_amps": ' + str(amps) + '}}'
+		log(ret)
+
+		return ret
 	except IOError as e:
 		return '{"error": {"message": ' + str(e) + '}}'
 
@@ -57,7 +63,10 @@ def charging_speed_set():
 		read_amps = itf.read_charging_amps(instrument)
 		read_kw = l.convert_amps_to_kw(amps)
 
-		return '{"results": {"success": "Successfully changed charging speed to ' + str(read_kw) + ' kW."}}'
+		ret = '{"results": {"charging_speed_read_kw": ' + str(read_kw) + ' kW.", "charging_speed_read_amps": ' + str(read_amps) + ', "charging_speed_write_amps": ' + str(amps) '}}'
+		log(ret)
+
+		return ret
 	except IOError as e:
 		return '{"error": {"message": ' + str(e) + '}}'
 
@@ -77,9 +86,13 @@ def charging_allowed_set():
 		read_allowed = itf.read_charging_allowed(instrument)
 
 		if allowed == read_allowed:
-			return '{"results": {"success": "Successfully changed charging permission to ' + str(read_allowed) + '."}}'
+			ret = '{"results": {"success": "Successfully changed charging permission to ' + str(read_allowed) + '."}}'
+			log(ret)
+			return ret
 		else:
-			return '{"error": {"message": "Charging permission not changed to expected value."}}'
+			ret = '{"error": {"message": "Charging permission not changed to expected value."}}'
+			log(ret)
+			return ret
 	except IOError as e:
 		return '{"error": {"message": ' + str(e) + '}}'
 
@@ -89,14 +102,20 @@ def charging_allowed_read():
 	try:
 		instrument = istr.create_instrument()
 	except:
-		return '{"error": {"message": ' + '"Could not connect via modbus."' + '}}'
+		ret = '{"error": {"message": ' + '"Could not connect via modbus."' + '}}'
+		log(ret)
+		return ret
 		
 	try:
 		allowed = itf.read_charging_allowed(instrument)
 
-		return '{"results": {"charging_permission": ' + str(allowed) + '}}'
+		ret = '{"results": {"charging_permission": ' + str(allowed) + '}}'
+		log(ret)
+		return ret
 	except IOError as e:
-		return '{"error": {"message": ' + str(e) + '}}'
+		ret = '{"error": {"message": ' + str(e) + '}}'
+		log(ret)
+		return ret
 
 if __name__ == '__main__':
 	app.run()
