@@ -60,13 +60,13 @@ def charging_speed_set():
 		content = request.json
 		kw = content["value"]
 
-		amps = l.convert_kw_to_amps(kw)
+		amps = round(l.convert_kw_to_amps(kw))
 		itf.write_charging_amps(instrument, amps)
 
 		read_amps = itf.read_charging_amps(instrument)
 		read_kw = l.convert_amps_to_kw(amps)
 
-		ret = '{"results": {"charging_speed_read_kw": ' + str(read_kw) + ' kW.", "charging_speed_read_amps": ' + str(read_amps) + ', "charging_speed_write_amps": ' + str(amps) + '}}'
+		ret = '{"results": {"charging_speed_read_kw": ' + str(read_kw) + ', "charging_speed_read_amps": ' + str(read_amps) + ', "charging_speed_write_amps": ' + str(amps) + '}}'
 		log(ret)
 
 		return ret
