@@ -27,7 +27,7 @@ def temp():
 
 		return ret
 	except IOError as e:
-		return '{"error": {"message": ' + str(e) + '}}'
+		return '{"error": {"message": "' + str(e) + '"}}'
 
 # Read charging speed
 @app.route('/charging-speed/read', methods=['GET'])
@@ -46,7 +46,7 @@ def charging_speed_read():
 
 		return ret
 	except IOError as e:
-		return '{"error": {"message": ' + str(e) + '}}'
+		return '{"error": {"message": "' + str(e) + '"}}'
 
 # Set charging speed
 @app.route('/charging-speed/set', methods=['POST'])
@@ -71,7 +71,7 @@ def charging_speed_set():
 
 		return ret
 	except IOError as e:
-		return '{"error": {"message": ' + str(e) + '}}'
+		return '{"error": {"message": "' + str(e) + '"}}'
 
 # Set charging allowed
 @app.route('/charging-allowed/set', methods=['POST'])
@@ -97,7 +97,7 @@ def charging_allowed_set():
 			log(ret)
 			return ret
 	except IOError as e:
-		return '{"error": {"message": ' + str(e) + '}}'
+		return '{"error": {"message": "' + str(e) + '"}}'
 
 # Read charging allowed
 @app.route('/charging-allowed/read', methods=['GET'])
@@ -116,7 +116,7 @@ def charging_allowed_read():
 		log(ret)
 		return ret
 	except IOError as e:
-		ret = '{"error": {"message": ' + str(e) + '}}'
+		return '{"error": {"message": "' + str(e) + '"}}'
 		log(ret)
 		return ret
 
