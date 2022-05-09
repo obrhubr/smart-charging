@@ -148,7 +148,7 @@ def prometheus():
 		speed = l.convert_amps_to_kw(amps)
 		allowed = itf.read_charging_allowed(instrument)
 
-		ret = '# TYPE health_check gauge \health_check 1 \n# TYPE device_temperature gauge \device_temperature ' + str(temperature) + ' \n# TYPE current_charging_speed gauge \ncurrent_charging_speed ' + str(speed) + ' \n# TYPE charging_allowed gauge \ncharging_allowed ' + str(allowed) + ''
+		ret = '# TYPE health_check gauge \nhealth_check 1 \n# TYPE device_temperature gauge \ndevice_temperature ' + str(temperature) + ' \n# TYPE current_charging_speed gauge \ncurrent_charging_speed ' + str(speed) + ' \n# TYPE charging_allowed gauge \ncharging_allowed ' + str(allowed) + ''
 		log(ret)
 		return Response(ret, mimetype='text/plain')
 	except IOError as e:
