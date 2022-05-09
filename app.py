@@ -124,16 +124,16 @@ def charging_allowed_read():
 def prometheus():
 	"""
 	# TYPE health_check gauge
-	health_check 1
+	sm_health_check 1
 	
 	# TYPE device_temperature gauge
-	device_temperature 29
+	sm_device_temperature 29
 
 	# TYPE current_charging_speed gauge
-	current_charging_speed 6
+	sm_current_charging_speed 6
 
 	# TYPE charging_allowed gauge
-	charging_allowed 1
+	sm_charging_allowed 1
 	"""
 	try:
 		instrument = istr.create_instrument()
@@ -148,7 +148,7 @@ def prometheus():
 		speed = l.convert_amps_to_kw(amps)
 		allowed = itf.read_charging_allowed(instrument)
 
-		ret = '# TYPE health_check gauge\nhealth_check 1 \n# TYPE device_temperature gauge\ndevice_temperature ' + str(temperature) + ' \n# TYPE current_charging_speed gauge\ncurrent_charging_speed ' + str(speed) + ' \n# TYPE charging_allowed gauge\ncharging_allowed ' + str(allowed) + ''
+		ret = '# TYPE sm_health_check gauge\nsm_health_check 1 \n# TYPE sm_device_temperature gauge\nsm_device_temperature ' + str(temperature) + ' \n# TYPE sm_current_charging_speed gauge\nsm_current_charging_speed ' + str(speed) + ' \n# TYPE sm_charging_allowed gauge\nsm_charging_allowed ' + str(allowed) + ''
 		log(ret)
 		return Response(ret, mimetype='text/plain')
 	except IOError as e:
