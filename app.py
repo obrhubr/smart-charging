@@ -122,7 +122,7 @@ def charging_allowed_read():
 
 # Read charging allowed
 @app.route('/prometheus', methods=['GET'])
-def charging_allowed_read():
+def prometheus():
 	"""
 	# TYPE health gauge
 	health 1
