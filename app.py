@@ -1,5 +1,4 @@
-from flask import Flask
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, Response
 import os
 
 import lib.instrument as istr
@@ -151,7 +150,7 @@ def prometheus():
 
 		ret = '# TYPE health gauge \nhealth 1 \n# TYPE temperature gauge \ntemperature ' + str(temperature) + ' \n# TYPE current_charging_speed gauge \ncurrent_charging_speed ' + str(speed) + ' \n# TYPE charging_allowed gauge \ncharging_allowed ' + str(allowed) + ''
 		log(ret)
-		return ret
+		return Response(ret, mimetype='text/plain')
 	except IOError as e:
 		return '{"error": {"message": "' + str(e) + '"}}'
 		log(ret)
