@@ -120,5 +120,43 @@ def charging_allowed_read():
 		log(ret)
 		return ret
 
+# Read charging allowed
+@app.route('/prometheus', methods=['GET'])
+def charging_allowed_read():
+	"""
+	# TYPE health gauge
+	health 1
+	
+	# TYPE temperature gauge
+	temperature 29
+
+	# TYPE current_charging_speed gauge
+	current_charging_speed 6
+
+	# TYPE charging_allowed gauge
+	charging_allowed 1
+	"""
+	try:
+		instrument = istr.create_instrument()
+	except:
+		ret = '{"error": {"message": ' + '"Could not connect via modbus."' + '}}'
+		log(ret)
+		return ret
+
+	try:
+		temperature = itf.read_temperature(instrument)
+		amps = itf.read_charging_amps(instrument)
+		speed = l.convert_amps_to_kw(amps)
+		allowed = itf.read_charging_allowed(instrument)
+
+		ret = '# TYPE health gauge \nhealth 1 \n# TYPE temperature gauge \ntemperature ' + str(temperature) + ' \n# TYPE current_charging_speed gauge \ncurrent_charging_speed ' + str(speed) + ' \n# TYPE charging_allowed gauge \ncharging_allowed ' + str(allowed) + ''
+		log(ret)
+		return ret
+	except IOError as e:
+		return '{"error": {"message": "' + str(e) + '"}}'
+		log(ret)
+		return ret
+
+
 if __name__ == '__main__':
 	app.run()
