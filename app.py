@@ -123,11 +123,11 @@ def charging_allowed_read():
 @app.route('/prometheus', methods=['GET'])
 def prometheus():
 	"""
-	# TYPE health gauge
-	health 1
+	# TYPE health_check gauge
+	health_check 1
 	
-	# TYPE temperature gauge
-	temperature 29
+	# TYPE device_temperature gauge
+	device_temperature 29
 
 	# TYPE current_charging_speed gauge
 	current_charging_speed 6
