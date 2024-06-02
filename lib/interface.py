@@ -34,3 +34,15 @@ def read_charging_amps(instrument):
         return instrument.read_register(101, 0)
     except IOError as e:
         raise IOError('Failed to write to instrument') from e
+
+# Read charging time
+def read_charging_time(instrument):
+    try:
+        b1 = instrument.read_register(152, 0)
+        b2 = instrument.read_register(151, 0)
+        bin_rep = '{0:016b}'.format(b1)+'{0:016b}'.format(b2)
+        int_rep = int(bin_rep, 2)
+
+        return int_rep
+    except IOError as e:
+        raise IOError('Failed to write to instrument') from e
