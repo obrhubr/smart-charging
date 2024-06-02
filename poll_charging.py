@@ -7,6 +7,9 @@ from datetime import datetime
 import requests
 
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 def charging_speed_read():
 	try:
@@ -107,13 +110,13 @@ def main():
 
 	# if car has only been plugged in for 10 minutes
 	# and different status than before
-	if data["charging_time"] < 10 * 60 * 1000 and data["status"] != old_data["status"]:
+	if data["charging_time"] < 10 * 60 * 1000 and data["status"] == True and old_data["status"] == False:
 		# send log that car has been plugged in
 		send_log(True, charging_speed_read(), data["charging_time"])
 
 	# if the charging diff = 0 -> plugged out
 	# and different status than before
-	elif charging_diff < 1000 and data["status"] != old_data["status"]:
+	elif charging_diff < 1000 and data["status"] == False and old_data["status"] == True:
 		# send log that car has been plugged out
 		send_log(False, charging_speed_read(), data["charging_time"])
 
